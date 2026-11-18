@@ -7,12 +7,12 @@
 <title>נדלר כל כך זקן ש… — המשחק</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rubik+Pixels&family=Rubik:wght@500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Secular+One&family=Rubik:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
   --k:#000;--navy:#1D2B53;--plum:#7E2553;--dgreen:#008751;--brown:#AB5236;--dgray:#5F574F;--lgray:#C2C3C7;
   --white:#FFF1E8;--red:#FF004D;--orange:#FFA300;--yellow:#FFEC27;--green:#00E436;--blue:#29ADFF;--lav:#83769C;--pink:#FF77A8;--peach:#FFCCAA;
-  --px:"Press Start 2P","Rubik",monospace; --pxh:"Rubik Pixels","Rubik",sans-serif; --body:"Rubik",system-ui,sans-serif;
+  --px:"Press Start 2P","Rubik",monospace; --pxh:"Secular One","Rubik",sans-serif; --body:"Rubik",system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;background:var(--navy);color:var(--white);font-family:var(--body);font-weight:700;overflow:hidden;
@@ -65,8 +65,8 @@ img.px{image-rendering:pixelated;image-rendering:crisp-edges;display:block;point
 .marq{direction:ltr;font:10px var(--px);color:var(--yellow);display:flex;justify-content:space-between;align-items:center;gap:6px}
 .marq b{color:var(--white);font-weight:400}
 .logo{margin-top:6px}
-.logo .l1{font:clamp(54px,17vw,84px)/0.95 var(--pxh);color:var(--lgray);text-shadow:4px 4px 0 #000,8px 8px 0 var(--plum)}
-.logo .l2{font:clamp(26px,8vw,40px)/1.1 var(--pxh);color:var(--yellow);text-shadow:3px 3px 0 #000;margin-top:4px}
+.logo .l1{font:clamp(60px,19vw,92px)/1 var(--pxh);color:var(--white);text-shadow:5px 5px 0 #000}
+.logo .l2{font:clamp(30px,9vw,44px)/1.15 var(--pxh);color:var(--yellow);text-shadow:3px 3px 0 #000;margin-top:6px}
 .logo .l3{font:clamp(18px,5.4vw,26px)/1.2 var(--body);font-weight:900;color:var(--pink);text-shadow:3px 3px 0 #000;margin-top:8px}
 .versus{display:flex;align-items:flex-end;justify-content:center;gap:14px;margin:8px 0}
 .versus .vs{font:22px var(--px);color:var(--red);text-shadow:3px 3px 0 #000;animation:vs .8s steps(2) infinite;margin-bottom:24px}
@@ -100,6 +100,21 @@ h2.t{font:clamp(26px,8vw,34px) var(--pxh);color:var(--yellow);text-align:center;
 .pl.sel{outline:4px solid var(--yellow);outline-offset:2px;animation:selp .6s steps(2) infinite}
 @keyframes selp{50%{outline-color:var(--pink)}}
 .pl .nm{min-height:18px}
+
+.ppre{display:flex;align-items:center;gap:14px;padding:10px 12px;background:#111a33;border:4px solid #000;box-shadow:6px 6px 0 #000;margin-bottom:12px}
+.pav{width:64px;height:64px;border:4px solid #000;background:var(--bgc,#2b3d6e);display:grid;place-items:center;flex:none}
+.pav img{width:48px;height:48px;animation:babyhop .5s steps(2) infinite}
+.pnm{font:900 22px var(--body);color:var(--white);word-break:break-word}
+.lbl2{display:block;font:800 14px var(--body);color:var(--peach);margin:6px 0 6px}
+.namein{width:100%;font:800 20px var(--body);padding:12px 14px;background:var(--white);color:var(--navy);border:4px solid #000;
+  box-shadow:inset 4px 4px 0 #c9bfb5,4px 4px 0 #000;outline:none;-webkit-user-select:text;user-select:text;border-radius:0;margin-bottom:8px}
+.namein:focus{box-shadow:inset 4px 4px 0 #c9bfb5,4px 4px 0 var(--pink)}
+.namein.bad{animation:shake .35s steps(6);border-color:var(--red)}
+.avatars{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.avb{aspect-ratio:1;padding:0;--c:var(--bgc)}
+.avb img{width:70%;height:70%}
+.avb.sel{outline:4px solid var(--yellow);outline-offset:1px;animation:selp .6s steps(2) infinite;transform:translateY(-3px)}
+@media (max-width:360px){.avatars{grid-template-columns:repeat(4,1fr)}}
 
 /* ---------- game ---------- */
 #s-game{padding-bottom:58px}
@@ -320,11 +335,15 @@ h2.t{font:clamp(26px,8vw,34px) var(--pxh);color:var(--yellow);text-align:center;
 
   <!-- PLAYER SELECT -->
   <section class="scr" id="s-player">
-    <h2 class="t">בחרו שחקן</h2>
-    <div class="players" id="players"></div>
-    <div class="note" id="playerNote">שחקן שכבר שיחק – נעול 🔒</div>
-    <div style="flex:1"></div>
+    <h2 class="t">צרו שחקן</h2>
+    <div class="ppre" id="pPrev"><div class="pav" id="pAv"></div><div><div class="lbl" style="color:var(--yellow)">PLAYER 1</div><div class="pnm" id="pNm">???</div></div></div>
+    <label class="lbl2" for="nameIn">השם שלכם</label>
+    <input id="nameIn" class="namein" maxlength="20" placeholder="הקלידו שם…" autocomplete="nickname" enterkeyhint="done" spellcheck="false">
+    <div class="lbl2">בחרו דמות</div>
+    <div class="avatars" id="avatars"></div>
+    <div style="flex:1;min-height:10px"></div>
     <button class="btn big full" id="playerOk" disabled>START ▶</button>
+    <div style="height:58px"></div>
   </section>
 
   <!-- GAME -->
@@ -357,7 +376,7 @@ h2.t{font:clamp(26px,8vw,34px) var(--pxh);color:var(--yellow);text-align:center;
       <div class="lock" id="lockArt"></div>
       <div class="bigsay" id="waitTitle" dir="auto">ההצבעה נקלטה!</div>
       <div class="dark panel" style="font:600 15px/1.6 var(--body)" id="waitTxt">התוצאות נעולות 🔒<br>הן ייחשפו כאן ברגע שיאיר יפרסם.<br>אפשר להשאיר את הדף פתוח.</div>
-      <div class="lbl blink" style="color:var(--yellow)">WAITING FOR PLAYER 1…</div>
+      <div class="lbl blink" dir="ltr" style="color:var(--yellow)">WAITING FOR PLAYER 1...</div>
     </div>
   </section>
 
@@ -405,11 +424,6 @@ const JOKES = [
 ];
 const IDS = new Set(JOKES.map(j=>j.id));
 const FACES = ["😐","🙂","😄","😂","💀"];
-const PLAYERS = [
-  {n:"נועם", e:"🦁", c:"#FFA300"}, {n:"נועה", e:"🦊", c:"#FF77A8"}, {n:"תבל", e:"🐙", c:"#29ADFF"},
-  {n:"דבח", e:"🐺", c:"#00E436"},  {n:"נדלר", e:"🦕", c:"#C2C3C7"}, {n:"רונה", e:"🐣", c:"#FFEC27"},
-];
-const GUESTS = [["🐸","צפרדע"],["🐼","פנדה"],["🐧","פינגווין"],["🐢","צב"],["🦉","ינשוף"],["🐝","דבורה"],["🦄","חד־קרן"],["🐳","לווייתן"]];
 
 /* ======================= PURE LOGIC (unit-tested) ======================= */
 function hashStr(s){ let h=2166136261>>>0; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619)>>>0; } return h; }
@@ -447,13 +461,12 @@ function swipeAction(dx, dy, w, h){
   if(dx < -0.28*w) return 1;
   return null;
 }
-function guestName(dev){ const g=GUESTS[hashStr(dev)%GUESTS.length]; return `אורח ${g[0]} ${g[1]} ${(hashStr(dev+"#")%90)+10}`; }
-window.__test={hashStr,shuffled,sanitizeVote,validateOwn,computeStats,computeAuthors,splitLead,swipeAction,guestName,JOKES,PLAYERS};
+window.__test={hashStr,shuffled,sanitizeVote,validateOwn,computeStats,computeAuthors,splitLead,swipeAction,JOKES};
 
 /* ======================= CONFIG / API ======================= */
 const SUPABASE_URL = "https://jcirbzzmnvqbbecghkgb.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_ZxQH6F9hIM8p5C2o7MePug_b46UwBxj";
-const ERR_HE = {already_voted:"כבר שיחקת מהמכשיר הזה ✋", ip_limit:"מהרשת הזאת כבר שיחקו ✋", name_taken:"השחקן הזה כבר שיחק — בחרו אחר",
+const ERR_HE = {already_voted:"כבר שיחקת מהמכשיר הזה ✋", ip_limit:"מהרשת הזאת כבר שיחקו ✋", name_taken:"השם הזה כבר תפוס — נסו שם אחר",
   bad_name:"שם לא תקין", bad_ratings:"חסרים דירוגים", bad_fav:"פייבוריט לא תקין", bad_device:"תקלה בזיהוי, רעננו", not_admin:"קוד מנהל שגוי"};
 async function rpc(fn, body){
   const ctl=new AbortController(); const to=setTimeout(()=>ctl.abort(),12000);
@@ -612,7 +625,7 @@ function ask(t,p,ok="כן!",no="ביטול"){ return new Promise(res=>{ $("mT").
   $("mOk").onclick=()=>done(true); $("mNo").onclick=()=>done(false); }); }
 
 /* ======================= TITLE ======================= */
-$("spOld").innerHTML=sprite(OLD,PAL,7); $("spBaby").innerHTML=sprite(BABY,PAL,6);
+$("lockArt").appendChild(pxImg("🔒",16)); $("spOld").innerHTML=sprite(OLD,PAL,7); $("spBaby").innerHTML=sprite(BABY,PAL,6);
 function renderTitle(){
   const sb=$("startBtn"), st=$("startTxt"), note=$("titleNote");
   sb.disabled=false; sb.style.removeProperty("--c");
@@ -632,24 +645,35 @@ $("howOk").onclick=()=>{ SFX.blip(); lsSet("nadler_how","1"); go(S.player? "s-ga
 $("adminBtn").onclick=()=>{ SFX.blip(); go("s-admin"); };
 
 /* ======================= PLAYER SELECT ======================= */
-let picked=null;
-function renderPlayers(){
-  const g=$("players"); g.innerHTML=""; picked = S.player && !ST.taken.includes(S.player) ? S.player : null;
-  const list=[...PLAYERS, {n:guestName(DEVICE), e:GUESTS[hashStr(DEVICE)%GUESTS.length][0], c:"#83769C", guest:true}];
-  list.forEach(p=>{
-    const taken=!p.guest && ST.taken.includes(p.n);
-    const b=document.createElement("button"); b.className="btn pl"+(taken?" taken":"")+(picked===p.n?" sel":""); b.disabled=taken;
-    const av=document.createElement("div"); av.className="av"; av.style.setProperty("--bgc",p.c); av.appendChild(pxImg(p.e,14));
-    const nm=document.createElement("div"); nm.className="nm"; nm.textContent=p.guest? "אורח" : p.n;
-    b.append(av,nm);
-    if(taken){ const d=document.createElement("div"); d.className="done"; d.textContent="PLAYED"; b.appendChild(d); }
-    b.onclick=()=>{ picked=p.n; SFX.blip(); document.querySelectorAll(".pl").forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); $("playerOk").disabled=false;
-      const [x,y]=ctr(b); burst(x,y,[p.c,"#FFF1E8"],10,70); };
-    g.appendChild(b);
-  });
-  $("playerOk").disabled=!picked;
+const AVATARS=[["🦁","#FFA300"],["🦊","#FF77A8"],["🐙","#29ADFF"],["🐺","#00E436"],["🦕","#83769C"],["🐣","#FFEC27"],
+  ["🐸","#008751"],["🐼","#C2C3C7"],["🐧","#1D2B53"],["🦄","#FF77A8"],["👾","#7E2553"],["🤖","#5F574F"]];
+let pickAv = (()=>{ const v=lsGet("nadler_av"); return AVATARS.some(a=>a[0]===v)? v : null; })();
+function cleanName(v){ return (v||"").replace(/[\u0000-\u001f<>]/g,"").replace(/\s+/g," ").trim().slice(0,20); }
+function playerReady(){ return !!pickAv && cleanName($("nameIn").value).length>=1; }
+function updatePrev(){
+  const n=cleanName($("nameIn").value); $("pNm").textContent = n || "???";
+  const av=$("pAv"); av.innerHTML=""; const a=AVATARS.find(x=>x[0]===pickAv);
+  av.style.setProperty("--bgc", a? a[1] : "#2b3d6e"); av.appendChild(pxImg(a? a[0] : "❔",16));
+  $("playerOk").disabled=!playerReady();
 }
-$("playerOk").onclick=()=>{ if(!picked) return; S.player=picked; saveProg(); SFX.coin(); flash(); go("s-game"); };
+function renderPlayers(){
+  const g=$("avatars"); g.innerHTML="";
+  if(!$("nameIn").value) $("nameIn").value=lsGet("nadler_name")||"";
+  AVATARS.forEach(([e,c])=>{ const b=document.createElement("button"); b.type="button"; b.className="btn avb"+(pickAv===e?" sel":""); b.style.setProperty("--bgc",c);
+    b.setAttribute("aria-label","דמות"); b.appendChild(pxImg(e,14));
+    b.onclick=()=>{ pickAv=e; lsSet("nadler_av",e); SFX.blip(); document.querySelectorAll(".avb").forEach(x=>x.classList.remove("sel")); b.classList.add("sel");
+      const [x,y]=ctr(b); burst(x,y,[c,"#FFF1E8"],10,70); updatePrev(); };
+    g.appendChild(b); });
+  updatePrev();
+}
+$("nameIn").addEventListener("input",()=>{ $("nameIn").classList.remove("bad"); lsSet("nadler_name",$("nameIn").value); updatePrev(); });
+$("nameIn").addEventListener("keydown",e=>{ if(e.key==="Enter"){ $("nameIn").blur(); if(playerReady()) $("playerOk").click(); } });
+$("playerOk").onclick=()=>{
+  const n=cleanName($("nameIn").value);
+  if(!n){ $("nameIn").classList.remove("bad"); void $("nameIn").offsetWidth; $("nameIn").classList.add("bad"); SFX.err(); return; }
+  if(!pickAv){ shake($("avatars")); SFX.err(); toast("בחרו דמות 👾"); return; }
+  S.player=pickAv+" "+n; saveProg(); SFX.coin(); flash(); go(allRated()? "s-review" : "s-game");
+};
 
 /* ======================= GAME ======================= */
 function nextUnrated(from){ for(let i=from;i<order.length;i++) if(!S.ratings[order[i].id]) return i; return -1; }
@@ -760,7 +784,7 @@ $("sendBtn").onclick=async()=>{
   const v=validateOwn(S.ratings,S.fav);
   if(!v.ok){ SFX.err(); shake(); toast("חסרים דירוגים"); S.idx=order.findIndex(j=>v.missing.includes(j.id)); go("s-game"); return; }
   if(!S.player){ go("s-player"); return; }
-  const ok=await ask("לשלוח סופית?", (S.fav?"":"לא בחרתם סופר־לייק ⭐ (לא חובה). ")+`משחקים בתור ${S.player.replace(/^אורח /,"אורח ")}. אחרי השליחה אי אפשר לשנות.`, "שלחו! 🚀", "רגע");
+  const ok=await ask("לשלוח סופית?", (S.fav?"":"לא בחרתם סופר־לייק ⭐ (לא חובה). ")+`משחקים בתור ${S.player}. אחרי השליחה אי אפשר לשנות.`, "שלחו! 🚀", "רגע");
   if(!ok) return;
   saving=true; $("sendBtn").disabled=true; $("sendBtn").textContent="שולח…";
   const clean={}; JOKES.forEach(j=>clean[j.id]=S.ratings[j.id]);
@@ -773,7 +797,7 @@ $("sendBtn").onclick=async()=>{
     if(ST.published) setTimeout(()=>reveal(),1200);
   }catch(e){
     SFX.err(); shake();
-    if(e.code==="name_taken"){ ST.taken.push(S.player); S.player=null; saveProg(); toast(ERR_HE.name_taken); go("s-player"); }
+    if(e.code==="name_taken"){ S.player=null; saveProg(); toast(ERR_HE.name_taken); go("s-player"); setTimeout(()=>{ $("nameIn").classList.add("bad"); },400); }
     else if(e.code==="already_voted"){ ST.voted=true; toast(ERR_HE.already_voted); go("s-wait"); }
     else if(e.code==="ip_limit"){ ST.ipFull=true; toast(ERR_HE.ip_limit); renderTitle(); go("s-title"); }
     else toast(ERR_HE[e.code] || "השליחה נכשלה – בדקו חיבור ונסו שוב");
@@ -902,6 +926,7 @@ setMute(muted);
   if(ADMIN) await loadAdmin();
   if(ST.voted) await fetchResults();
   if(S.player && !ST.voted && ST.taken.includes(S.player)) S.player=null;
+  if(S.player && !/^\S+ \S/.test(S.player)) S.player=null;
   renderTitle();
 })();
 </script>
